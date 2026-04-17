@@ -1,5 +1,6 @@
-from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 import subprocess
 import tempfile
@@ -17,6 +18,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/")
+def home():
+    return FileResponse("index.html")
+
+
 @app.post("/run-code")
 def run_code(req: CodeRequest):
     try:
@@ -25,7 +32,7 @@ def run_code(req: CodeRequest):
             file_path = f.name
 
         result = subprocess.run(
-            ["python", file_path],
+            ["python3", file_path],
             capture_output=True,
             text=True,
             timeout=3
@@ -39,4 +46,7 @@ def run_code(req: CodeRequest):
         }
 
     except Exception as e:
-        return {"error": str(e)}
+        return {
+            "output": "",
+            "error": str(e)
+        }

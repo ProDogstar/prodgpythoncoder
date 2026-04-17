@@ -1,4 +1,5 @@
-<!DOCTYPE htmlfetch("https://prodgpythoncoder.onrender.com", {<html>
+<!DOCTYPE html>
+<html>
 <head>
   <title>ProDG Python Runner</title>
 </head>
@@ -14,28 +15,28 @@
   <pre id="output"></pre>
 
   <script>
-async function runCode() {
-  const code = document.getElementById("code").value;
+    async function runCode() {
+      const code = document.getElementById("code").value;
 
-  try {
-    const res = await fetch("/runcode",{
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ code: usercode })
-    });
+      try {
+        const res = await fetch("/run-code", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ code: code })
+        });
 
-    const data = await res.json();
+        const data = await res.json();
 
-    document.getElementById("output").innerText =
-      data.output || data.error;
+        document.getElementById("output").innerText =
+          data.output || data.error;
 
-  } catch (err) {
-    document.getElementById("output").innerText =
-      "❌ Connection failed: " + err;
-  }
-}
+      } catch (err) {
+        document.getElementById("output").innerText =
+          "❌ Connection failed: " + err;
+      }
+    }
   </script>
 
 </body>
