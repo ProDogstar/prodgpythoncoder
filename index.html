@@ -1,4 +1,4 @@
-<!DOCTYPE htmlfetch("https://lightweight-fork-region-consoles.trycloudflare.com", {<html>
+<!DOCTYPE htmlfetch("https://prodgpythoncoder.onrender.com", {<html>
 <head>
   <title>ProDG Python Runner</title>
 </head>
@@ -18,12 +18,12 @@ async function runCode() {
   const code = document.getElementById("code").value;
 
   try {
-    const res = await fetch("https://lightweight-fork-region-consoles.trycloudflare.com/run-code", {
+    const res = await fetch("/runcode",{
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ code: code })
+      body: JSON.stringify({ code: usercode })
     });
 
     const data = await res.json();
