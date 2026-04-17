@@ -1,0 +1,42 @@
+<!DOCTYPE htmlfetch("https://lightweight-fork-region-consoles.trycloudflare.com", {<html>
+<head>
+  <title>ProDG Python Runner</title>
+</head>
+<body style="background:black; color:white; padding:20px;">
+
+  <h1>Python Code Runner</h1>
+
+  <textarea id="code" rows="10" cols="50" placeholder="Write Python code..."></textarea>
+  <br><br>
+
+  <button onclick="runCode()">Run Code</button>
+
+  <pre id="output"></pre>
+
+  <script>
+async function runCode() {
+  const code = document.getElementById("code").value;
+
+  try {
+    const res = await fetch("https://lightweight-fork-region-consoles.trycloudflare.com/run-code", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ code: code })
+    });
+
+    const data = await res.json();
+
+    document.getElementById("output").innerText =
+      data.output || data.error;
+
+  } catch (err) {
+    document.getElementById("output").innerText =
+      "❌ Connection failed: " + err;
+  }
+}
+  </script>
+
+</body>
+</html>
